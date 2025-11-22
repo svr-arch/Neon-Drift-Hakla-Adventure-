@@ -17,18 +17,17 @@ const restartBtn = document.getElementById("restart-btn");
 restartBtn.onclick = () => window.location.reload();
 
 const DIRECTIONS = [
-    { r: -1, c: 0 }, // up
-    { r: 1, c: 0 },  // down
-    { r: 0, c: -1 }, // left
-    { r: 0, c: 1 }   // right
+    { r: -1, c: 0 },
+    { r: 1, c: 0 },  
+    { r: 0, c: -1 }, 
+    { r: 0, c: 1 }   
 ];
 
-// Freeze game after win/lose
 function freezeGame() {
     gameFrozen = true;
 }
 
-// Show Win/Lose Screen
+
 function showEndScreen(type) {
     freezeGame();
     overlay.style.display = "flex";
@@ -44,15 +43,13 @@ function showEndScreen(type) {
     }
 }
 
-// =============================
-// 🔹 GRID / CELL HELPERS
-// =============================
+
 function findCell(r, c) {
     if (r < 0 || r >= gridRows || c < 0 || c >= gridCols) return null;
     return cells[r * gridCols + c] || null;
 }
 
-// BFS Check reachability for treasure
+
 function isReachable(targetCell) {
     const startCell = findCell(0, 0);
     if (!startCell) return false;
@@ -82,9 +79,7 @@ function isReachable(targetCell) {
     return false;
 }
 
-// =============================
-// 🔹 TREASURE PLACEMENT
-// =============================
+
 function placeTreasure() {
     const emptyCells = cells.filter(c =>
         !c.element.classList.contains("wall") &&
@@ -99,9 +94,7 @@ function placeTreasure() {
     cell.element.classList.add("treasure");
 }
 
-// =============================
-// 🔹 GRID GENERATION
-// =============================
+
 function generateGrid() {
     game.innerHTML = "";
     cells = [];
@@ -127,7 +120,7 @@ function generateGrid() {
         }
     }
 
-    // Place guaranteed treasure
+
     const treasureCells = [];
     let count = 0;
 
@@ -144,10 +137,10 @@ function generateGrid() {
         count++;
     }
 
-    // Make sure treasure is reachable
+
     for (const t of treasureCells) {
         if (!isReachable(t)) {
-            // Remove walls until reachable
+            
             for (const cell of cells) {
                 if (cell.element.classList.contains("wall")) {
                     cell.element.classList.remove("wall");
@@ -155,7 +148,7 @@ function generateGrid() {
                 }
             }
 
-            // If STILL not reachable, replace treasure
+            
             if (!isReachable(t)) {
                 t.element.classList.remove("treasure");
                 placeTreasure();
@@ -166,9 +159,7 @@ function generateGrid() {
 
 generateGrid();
 
-// =============================
-// 🔹 PLAYER
-// =============================
+
 function drawPlayer() {
     cells.forEach(c => c.element.classList.remove("player"));
     findCell(playerPos.row, playerPos.col).element.classList.add("player");
@@ -176,9 +167,7 @@ function drawPlayer() {
 
 drawPlayer();
 
-// =============================
-// 🔹 ENEMY
-// =============================
+
 let enemyPos = {
     row: gridRows - 1,
     col: gridCols - 1
@@ -203,7 +192,7 @@ function moveEnemy() {
 
     drawEnemy();
 
-    // 🔥 FIXED: Lose sound on enemy catch
+    
     if (enemyPos.row === playerPos.row && enemyPos.col === playerPos.col) {
         playLoseSound();
         showEndScreen("lose");
@@ -216,9 +205,7 @@ function moveEnemy() {
 drawEnemy();
 moveEnemy();
 
-// =============================
-// 🔹 TREASURE CURSING SYSTEM
-// =============================
+
 function checkNearbyTreasures() {
     if (gameFrozen) return;
 
@@ -253,9 +240,7 @@ function checkNearbyTreasures() {
     }
 }
 
-// =============================
-// 🔹 SOUNDS
-// =============================
+
 function playWinSound() {
     document.getElementById("winSound").play();
 }
@@ -264,9 +249,7 @@ function playLoseSound() {
     document.getElementById("loseSound").play();
 }
 
-// =============================
-// 🔹 PLAYER MOVEMENT
-// =============================
+
 document.addEventListener("keydown", e => {
     if (gameFrozen) return;
 
@@ -292,14 +275,14 @@ document.addEventListener("keydown", e => {
 
     const current = findCell(playerPos.row, playerPos.col);
 
-    // Stepped on cursed tile → LOSE
+
     if (current.element.classList.contains("cursed")) {
         playLoseSound();
         showEndScreen("lose");
         return;
     }
 
-    // Collect treasure → WIN
+
     if (current.element.classList.contains("treasure")) {
         treasuresCollected++;
         current.element.classList.remove("treasure");
@@ -312,3 +295,4 @@ document.addEventListener("keydown", e => {
     }
 
 });
+

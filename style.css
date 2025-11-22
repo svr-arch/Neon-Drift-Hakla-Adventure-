@@ -1,6 +1,4 @@
-/* ================================
-   GLOBAL PAGE STYLING
-================================= */
+
 body {
   text-align: center;
   font-family: 'Press Start 2P', cursive;
@@ -34,9 +32,7 @@ p {
   color: #00eeff;
 }
 
-/* ================================
-   GAME GRID
-================================= */
+
 #game {
   width: 600px;
   height: 400px;
@@ -61,8 +57,7 @@ p {
   position: relative;
 }
 
-/* ================================
-   PLAYER
+
 ================================= */
 .player {
   background-color: #00008b;
@@ -96,17 +91,13 @@ p {
   box-shadow: 0 0 5px rgba(0, 238, 255, 0.6);
 }
 
-/* ================================
-   WALLS
-================================= */
+
 .wall {
   background-color: #555;
   border: 1px solid #333;
 }
 
-/* ================================
-   TREASURE
-================================= */
+
 .treasure {
   background-color: transparent;
   overflow: visible;
@@ -138,9 +129,7 @@ p {
   to { background-position: 100% 0%; }
 }
 
-/* ================================
-   CURSED SKULL
-================================= */
+
 .cursed {
   background-image: url('images/skull.png');
   background-size: contain;
@@ -154,9 +143,7 @@ p {
   to { filter: drop-shadow(0 0 12px red); }
 }
 
-/* ================================
-   ENEMY
-================================= */
+
 .enemy {
   background-color: transparent;
   background-image: url('images/hakla.png');
@@ -165,9 +152,7 @@ p {
   background-position: center;
 }
 
-/* ================================
-   GAME OVER / WIN OVERLAY
-================================= */
+
 #game-overlay {
     position: absolute;
     top: 0;
@@ -205,3 +190,4 @@ p {
     color: #000;
     text-shadow: 1px 1px #555;
 }
+

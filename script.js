@@ -7,7 +7,7 @@ let movesTaken = 0;
 let gameFrozen = false;
 
 let cells = [];
-const NUM_TREASURES = 1;
+const NUM_TREASURES = 10;
 
 const overlay = document.getElementById("game-overlay");
 const endImage = document.getElementById("end-image");
@@ -310,4 +310,5 @@ document.addEventListener("keydown", e => {
             showEndScreen("win");
         }
     }
+
 });
